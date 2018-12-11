@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet" type="text/css">
-
     <style>
         html, body {
             background-color: #fff;
@@ -82,24 +80,17 @@
     @endif
 
     <div class="content">
-        <div class="title m-b-md">
-            Hello world
-        </div>
         <div>
-            <h2>Users</h2>
-            <ul>
-                @foreach($users as $user)
-                    <li> {{ $user->name }} -
+            <h2>Edit user {{$user->name}}</h2>
+            <form action="{{route('users.store')}}" method="POST">
+                @csrf
 
-                        <form action="{{route('users.delete',['id' => $user->id])}}" method="POST">
-                            @csrf
-                            @method('delete')
+                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
 
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </li>
-                @endforeach
-            </ul>
+                <input type="submit" value="Create new user">
+            </form>
         </div>
     </div>
 </div>

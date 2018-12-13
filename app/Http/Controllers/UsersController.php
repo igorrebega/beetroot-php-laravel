@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -44,7 +43,12 @@ class UsersController extends Controller
 
     public function update($id)
     {
+        $user = User::findOrFail($id);
+        $user->name = \request('name');
 
+        $user->save();
+
+        return redirect()->route('users.update', ['id' => $id]);
     }
 
     public function delete($id)

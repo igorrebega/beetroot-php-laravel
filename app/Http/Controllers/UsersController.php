@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -20,40 +21,35 @@ class UsersController extends Controller
         return view('users/create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $user = new User();
-        $user->name = \request('name');
-        $user->email = \request('email');
-        $user->password = bcrypt(\request('password'));
+        $data = $request->only(['name', 'email', 'password']);
+        $data['password'] = bcrypt($data['password']);
 
-        $user->save();
+        User::create($data);
 
         return redirect()->route('home');
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
-
         return view('users/edit', [
             'user' => $user
         ]);
     }
 
-    public function update($id)
+    public function update(User $user, Request $request)
     {
-        $user = User::findOrFail($id);
-        $user->name = \request('name');
+        $user->name = $request->get('name');
 
         $user->save();
 
-        return redirect()->route('users.update', ['id' => $id]);
+        return redirect()->route('users.update', ['id' => $user->id]);
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        User::query()->where('id', $id)->delete();
+        $user->delete();
 
         return redirect()->route('home');
     }

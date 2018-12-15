@@ -16,10 +16,11 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/users', 'UsersController@index')->name('users.index');
 Route::get('/users/create', 'UsersController@create')->name('users.create');
 Route::post('/users/store', 'UsersController@store')->name('users.store');
-Route::delete('/users/{id}', 'UsersController@delete')->name('users.delete');
-Route::get('/users/{id}', 'UsersController@edit')->name('users.edit');
-Route::post('/users/{id}', 'UsersController@update')->name('users.update');
+Route::delete('/users/{user}', 'UsersController@delete')->name('users.delete');
+Route::get('/users/{user}', 'UsersController@edit')->name('users.edit');
+Route::post('/users/{user}', 'UsersController@update')->name('users.update');
 
+Route::resource('projects', 'ProjectController');
 
 
 

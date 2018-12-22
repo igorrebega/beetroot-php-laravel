@@ -26,7 +26,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('project.create', [
+            'project' => new Project()
+        ]);
     }
 
     /**
@@ -37,7 +39,12 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = Project::create($request->only(['title', 'description']));
+        $params = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required'
+        ]);
+
+        $project = Project::create($params);
 
         return redirect()->route('projects.show', ['project' => $project->id]);
     }
@@ -73,7 +80,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $project->update($request->only(['title', 'description']));
+        $params = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required'
+        ]);
+
+        $project->update($params);
 
         return redirect()->route('projects.show', ['project' => $project->id]);
     }

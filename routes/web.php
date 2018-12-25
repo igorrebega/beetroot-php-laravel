@@ -23,3 +23,4 @@ Route::post('/users/{user}', 'UsersController@update')->name('users.update');
 Route::resource('projects', 'ProjectController');
 
 Route::patch('/tasks/{task}', 'ProjectTaskController@update')->name('tasks.complete');
+Route::post('/project/{project}/tasks', 'ProjectTaskController@store')->name('tasks.store');

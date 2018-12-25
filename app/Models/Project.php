@@ -12,4 +12,9 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function addTask($params)
+    {
+        return $this->tasks()->create($params);
+    }
 }

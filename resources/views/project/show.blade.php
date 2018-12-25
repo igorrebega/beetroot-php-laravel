@@ -7,6 +7,28 @@
         {{$project->description}}
     </p>
 
+    <form action="{{route('tasks.store',['project' => $project->id])}}" method="POST">
+        @csrf
+
+        <div class="form-group">
+            <input
+                    type="text"
+                    name="description"
+                    class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}"
+                    value="{{old('description')}}"
+            >
+            @if($errors->has('description'))
+                <div class="invalid-feedback">
+                    {{$errors->get('description')[0]}}
+                </div>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Create new task</button>
+        </div>
+    </form>
+
     <div>
         @foreach($project->tasks as $task)
             <form action="{{route('tasks.complete',['task'=>$task->id])}}" method="POST">

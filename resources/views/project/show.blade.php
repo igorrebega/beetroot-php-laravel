@@ -31,9 +31,11 @@
 
     <div>
         @foreach($project->tasks as $task)
-            <form action="{{route('tasks.complete',['task'=>$task->id])}}" method="POST">
-                @method('PATCH')
+            <form action="/completed-task/{{$task->id}}" method="POST">
                 @csrf
+                @if($task->completed)
+                    @method('DELETE')
+                @endif
 
                 <div class="form-group form-check">
                     <input

@@ -17,4 +17,9 @@ class Project extends Model
     {
         return $this->tasks()->create($params);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

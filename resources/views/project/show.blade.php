@@ -7,6 +7,10 @@
         {{$project->description}}
     </p>
 
+    <p>
+        <b>User: </b> {{$project->user->name}}
+    </p>
+
     <form action="{{route('tasks.store',['project' => $project->id])}}" method="POST">
         @csrf
 

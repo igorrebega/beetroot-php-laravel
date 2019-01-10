@@ -27,3 +27,5 @@ Route::post('/project/{project}/tasks', 'ProjectTaskController@store')->name('ta
 
 Route::post('completed-task/{task}', 'CompletedTaskController@store')->name('completed-task.store');
 Route::delete('completed-task/{task}', 'CompletedTaskController@destroy')->name('completed-task.destroy');
+
+Auth::routes();

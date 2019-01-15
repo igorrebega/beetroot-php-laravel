@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UsersController@index')->name('users.index');
@@ -20,12 +22,12 @@ Route::delete('/users/{user}', 'UsersController@delete')->name('users.delete');
 Route::get('/users/{user}', 'UsersController@edit')->name('users.edit');
 Route::post('/users/{user}', 'UsersController@update')->name('users.update');
 
-Route::resource('projects', 'ProjectController');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('projects', 'ProjectController');
 
-Route::patch('/tasks/{task}', 'ProjectTaskController@update')->name('tasks.complete');
-Route::post('/project/{project}/tasks', 'ProjectTaskController@store')->name('tasks.store');
+    Route::patch('/tasks/{task}', 'ProjectTaskController@update')->name('tasks.complete');
+    Route::post('/project/{project}/tasks', 'ProjectTaskController@store')->name('tasks.store');
 
-Route::post('completed-task/{task}', 'CompletedTaskController@store')->name('completed-task.store');
-Route::delete('completed-task/{task}', 'CompletedTaskController@destroy')->name('completed-task.destroy');
-
-Auth::routes();
+    Route::post('completed-task/{task}', 'CompletedTaskController@store')->name('completed-task.store');
+    Route::delete('completed-task/{task}', 'CompletedTaskController@destroy')->name('completed-task.destroy');
+});

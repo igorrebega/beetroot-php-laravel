@@ -7,9 +7,13 @@
         {{$project->description}}
     </p>
 
-    <p>
-        <b>User: </b> {{$project->user->name}}
-    </p>
+    @can('update',$project)
+        <p>
+            <b>User: </b> {{$project->user->name}}
+        </p>
+    @endcan
+
+
 
     <form action="{{route('tasks.store',['project' => $project->id])}}" method="POST">
         @csrf

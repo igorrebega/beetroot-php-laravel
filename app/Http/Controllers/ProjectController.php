@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::query()->where('user_id', auth()->id())->get();
 
         return view('project.index', compact('projects'));
     }
@@ -57,9 +57,12 @@ class ProjectController extends Controller
      *
      * @param  Project $project
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Project $project)
     {
+        $this->authorize('update', $project);
+
         return view('project.show', compact('project'));
     }
 
@@ -68,9 +71,12 @@ class ProjectController extends Controller
      *
      * @param  Project $project
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         $users = User::all();
         return view('project.edit', compact('project', 'users'));
     }
@@ -81,9 +87,12 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @param  Project $project
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         $params = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
@@ -104,6 +113,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('update', $project);
+
         $project->delete();
 
         return redirect()->route('projects.index');

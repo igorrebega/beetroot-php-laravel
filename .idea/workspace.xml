@@ -350,9 +350,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1840" />
-    <option name="width" value="1067" />
-    <option name="height" value="607" />
+    <option name="x" value="398" />
+    <option name="y" value="27" />
+    <option name="width" value="870" />
+    <option name="height" value="494" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
